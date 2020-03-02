@@ -1,4 +1,4 @@
-'ID', 'name', 'data type', 'description', 'update',
+'No.','ID', 'name', 'data type', 'description', 'update_time',
 '1', 'ERC000012', 'GSC MIxS air', 'samples', 'Genomic Standards Consortium package extension for reporting of measurements and observations obtained from the environment where the sample was obtained. By choosing the environmental package, a selection of fields can be made from a relevant subsets of the GSC terms.', '20200228'
 '2', 'ERC000013', 'GSC MIxS host associated', 'samples', 'Genomic Standards Consortium package extension for reporting of measurements and observations obtained from the environment where the sample was obtained. By choosing the environmental package, a selection of fields can be made from a relevant subsets of the GSC terms.', '20200228'
 '3', 'ERC000014', 'GSC MIxS human associated', 'samples', 'Genomic Standards Consortium package extension for reporting of measurements and observations obtained from the environment where the sample was obtained. By choosing the environmental package, a selection of fields can be made from a relevant subsets of the GSC terms.', '20200228'
