@@ -5,10 +5,10 @@ This is a collection of checklists used in the EBI Data submission portal. Updat
 #### from DSP
 ```sh
 # From DSP dev
-curl "https://submission-test.ebi.ac.uk/api/checklists?ize=300" > DSP_schema.json
+curl "https://submission-test.ebi.ac.uk/api/checklists?size=300" > DSP_schema.json
 
 # From DSP production, not available until end of April, 2020
-curl "https://submission.ebi.ac.uk/api/checklists?ize=300" > DSP_schema.json
+curl "https://submission.ebi.ac.uk/api/checklists?size=300" > DSP_schema.json
 ```
 
 #### Alternative solution
