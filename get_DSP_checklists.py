@@ -10,16 +10,10 @@ checklists = requests.get("https://submission-test.ebi.ac.uk/api/checklists?size
 numberOfChecks = len(checklists['_embedded']['checklists'])
 
 updateTime = date.today().strftime("%Y%m%d")
-loc = 'DSP_checklists'
 summaryFile = str(updateTime + '_checklists_summary.csv')
 
-try:
-    os.stat(loc)
-except:
-    os.mkdir(loc)
 
-
-with open(loc+'/'+summaryFile, "a+") as f:
+with open(summaryFile, "a+") as f:
     f.write(str(["ID","name","data type", "description", "update"])[1:-1]+'\n')
     for i in range(numberOfChecks):
         content = checklists['_embedded']['checklists'][i]
@@ -34,9 +28,12 @@ with open(loc+'/'+summaryFile, "a+") as f:
             description = 'N/A'
 
         summary = [str(i+1),ID,name,dataType,description,updateTime]
-        f.write(str(summary)[1:-1]+'\n')
+        for value in summary:
+            f.write(value+'\t')
+        f.write('\n')
 
-        with open(loc+'/'+ID+'.json','w+') as g:
+        with open(ID+'.json','w+') as g:
             json.dump(content,g)
+
 
 
