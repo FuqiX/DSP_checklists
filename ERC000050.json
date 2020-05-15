@@ -1,0 +1,1 @@
+{"id": "ERC000050", "dataTypeId": "samples", "displayName": "ENA binned metagenome", "description": "Minimum information to standardise metadata of binned metagenome samples. Ensures binned and MAG metagenome assembly metadata is compatible.", "validationSchema": "https://submission.ebi.ac.uk/api/validationSchemas/ERC000050"}

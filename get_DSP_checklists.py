@@ -2,38 +2,44 @@ import json
 import requests
 import os
 from datetime import date
+import pandas as pd
 
-# Get checklists from DSP endpoint
-# (submission.ebi.ac.uk is down. use submission-test instead)
-checklists = requests.get("https://submission-test.ebi.ac.uk/api/checklists?size=300").json()
+# Get validation schemas  from DSP endpoint
+schemas = requests.get("https://submission.ebi.ac.uk/api/validationSchemas?size=100").json()
 
-numberOfChecks = len(checklists['_embedded']['checklists'])
+numberOfChecks = len(schemas['_embedded']['validationSchemas'])
 
 updateTime = date.today().strftime("%Y%m%d")
-summaryFile = str(updateTime + '_checklists_summary.csv')
+summaryFile = 'validationSchema_summary.tsv'
 
 
-with open(summaryFile, "a+") as f:
-    f.write(str(["ID","name","data type", "description", "update"])[1:-1]+'\n')
-    for i in range(numberOfChecks):
-        content = checklists['_embedded']['checklists'][i]
+all_summary = []
+for i in range(numberOfChecks):
+    content = schemas['_embedded']['validationSchemas'][i]
 
-        ID = checklists['_embedded']['checklists'][i]['id']
-        dataType = checklists['_embedded']['checklists'][i]['dataTypeId']
-        name = checklists['_embedded']['checklists'][i]['displayName']
+    ID = schemas['_embedded']['validationSchemas'][i]['id']
+    dataType = schemas['_embedded']['validationSchemas'][i]['dataTypeId']
+    name = schemas['_embedded']['validationSchemas'][i]['displayName']
 
-        if 'description' in checklists['_embedded']['checklists'][i].keys():
-            description = checklists['_embedded']['checklists'][i]['description']
-        else:
-            description = 'N/A'
+    if 'description' in schemas['_embedded']['validationSchemas'][i].keys():
+        description = schemas['_embedded']['validationSchemas'][i]['description']
+        # remove \t in the description
+        description = description.replace("\t"," ")
+    else:
+        description = 'N/A'
 
-        summary = [str(i+1),ID,name,dataType,description,updateTime]
-        for value in summary:
-            f.write(value+'\t')
-        f.write('\n')
+    # generate seperate file for each validation schema
+    with open(ID+'.json','w+') as g:
+        json.dump(content,g)
 
-        with open(ID+'.json','w+') as g:
-            json.dump(content,g)
+    summary = [ID,name,dataType,description,updateTime]
+    all_summary.append(summary)
+
+df = pd.DataFrame(all_summary)
+df.columns = ["ID","name","dataType","description","updateTime"]
+df.to_csv(summaryFile,sep = "\t")
+
+        
 
 
 

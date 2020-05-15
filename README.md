@@ -1,17 +1,20 @@
-This is a collection of checklists used in the EBI Data submission portal. Updated on 28/02/2020
+This is a collection of [meta]data standards used in the EBI Data submission portal. Updated on 14/05/2020
 
-### Get checklists 
-
-#### from DSP
-```sh
-curl "https://submission.ebi.ac.uk/api/checklists?size=300" > DSP_schema.json
-```
-
-#### Alternative solution
-
-[A script](get_DSP_checklists.py) for extracting the DSP checklists to dir `DSP_checklists`, and generating [a summary csv file](20200228_checklists_summary.csv)
-
-### Structure of DSP checklists
-A complete DSP checklist (e.g. [ERC000040](ERC000040.json) includes a `spreadsheetTemplate` and a `validationSchema`. The `validationSchema` can be used to validate your data.
+DSP have two endpoints for querying those standards, __checklists__ and __validationSchema__. A complete DSP checklist (e.g. [ERC000040](ERC000040.json) includes a `spreadsheetTemplate` and a `validationSchema`. The `validationSchema` can be used to validate your JSON data.
 
 *The validationSchema of some checklists are still under development*
+
+:bulb: It's recommended to use the [validationschema](https://submission.ebi.ac.uk/api/validationSchemas?size=100) endpoint, instead of the [checklists](https://submission.ebi.ac.uk/api/checklists?size=100) endpoint.
+
+
+#### Get validation schemas
+```sh
+#validation schemas
+curl "https://submission-test.ebi.ac.uk/api/validationSchemas?size=100 " > DSP_schema.json
+```
+
+#### Get A summary of all validationschemas
+
+[A small script](get_DSP_checklists.py) to extract all DSP validation schemas into seperate JSON files, and generate [a summary tsv file](validationSchema_summary.tsv).
+
+
